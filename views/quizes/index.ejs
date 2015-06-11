@@ -3,3 +3,9 @@
     for(i=0;i<quizes.length;i++){%>
         <a href="quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta%></a><br/>
 <%  } %>
+
+<br/>
+<form method="get" action="/quizes">
+    <input type="text" name="search" placeholder="Buscar"></br>
+    <input type="submit" value="Buscar">
+</form>
