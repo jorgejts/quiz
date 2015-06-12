@@ -1,7 +1,7 @@
 <%
     var i=null;
     for(i=0;i<quizes.length;i++){%>
-        <a href="quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta%></a><br/>
+        <a href="quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta%></a><a href="quizes/<%= quizes[i].id %>/edit"><button>editar</button></a><br/>
 <%  } %>
 
 <br/>
