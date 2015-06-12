@@ -9,10 +9,12 @@ sequelize.sync().then(function () {
     Quiz.count().then(function (count) {
         if (count === 0) {
             Quiz.create({ pregunta: 'Capital de Italia',
-                respuesta: 'roma'
+                respuesta: 'roma',
+                tipo:'otro'
             });
             Quiz.create({ pregunta: 'Capital de Portugal',
-                respuesta: 'lisboa'
+                respuesta: 'lisboa',
+                tipo:'otro'
             }).then(function () { console.log('Base de datos arrancá') });
         };
     });

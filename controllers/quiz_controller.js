@@ -32,15 +32,23 @@ exports.index = function (req, res) {
     if (req.query.search) {
         busqueda='%'+req.query.search+'%';
         busqueda=busqueda.replace(" ","%");
-        console.log(busqueda);
-    } 
-    models.Quiz.findAll({ where: { pregunta: { $like: busqueda}} }).then(function (quizes) {
-        res.render('quizes/index.ejs', { quizes: quizes, errors:[] });
-    })
+        models.Quiz.findAll({ where: { pregunta: { $like: busqueda}} }).then(function (quizes) {
+            res.render('quizes/index.ejs', { quizes: quizes, errors:[] });
+        })
+    }else if(req.query.tipado){
+        busqueda='%'+req.query.tipado+'%';
+        models.Quiz.findAll({ where: { tipo: { $like: busqueda}} }).then(function (quizes) {
+            res.render('quizes/index.ejs', { quizes: quizes, errors:[] });
+        })
+    }else{
+        models.Quiz.findAll().then(function (quizes) {
+            res.render('quizes/index.ejs', { quizes: quizes, errors:[] });
+        })
+    }
 };
 exports.new = function(req,res){
     var quiz=models.Quiz.build(
-        {pregunta:'pregunta',respuesta:'respuesta'});
+        {pregunta:'pregunta',respuesta:'respuesta',tipo:'tipo'});
     res.render('quizes/new',{quiz:quiz, errors:[]});
 };
 exports.create = function(req,res){
@@ -49,7 +57,7 @@ exports.create = function(req,res){
         if(err){
             res.render('quizes/new',{quiz:quiz, errors: err.errors});
         }else{
-           quiz.save({fields:["pregunta","respuesta"]}).then(function(){
+           quiz.save({fields:["pregunta","respuesta","tipo"]}).then(function(){
             res.redirect('/quizes');
             }) 
         }
@@ -62,13 +70,14 @@ exports.edit=function(req,res){
 exports.update=function(req,res){
     req.quiz.pregunta=req.body.quiz.pregunta;
     req.quiz.respuesta=req.body.quiz.respuesta;
+    req.quiz.tipo=req.body.quiz.tipo;
 
     req.quiz.validate().then(
             function(err){
                 if(err){
                     res.render('quizes/edit',{quiz:req.quiz,errors:err.errors});
                 }else{
-                    req.quiz.save({fields:['pregunta','respuesta']})
+                    req.quiz.save({fields:['pregunta','respuesta','tipo']})
                     .then(function(){res.redirect('/quizes')});
                 }
             }

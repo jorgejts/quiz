@@ -3,6 +3,7 @@
     var i=null;
     for(i=0;i<quizes.length;i++){%>
     <tr>
+    	<td>Tipo: <%= quizes[i].tipo %></td>
         <td><a href="quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta%></a></td>
         <td><a href="quizes/<%= quizes[i].id %>/edit"><button>editar</button></a></td>
         <td><form method="post" action="/quizes/<%=quizes[i].id %>?_method=delete">
@@ -18,6 +19,16 @@
 
 <br/>
 <form method="get" action="/quizes">
-    <input type="text" name="search" placeholder="Buscar"></br>
+    <input type="text" name="search" placeholder="Buscar">
+    <input type="submit" value="Buscar">
+</form>
+<form method="get" action="/quizes">
+    <select id="tipo" name="tipado"/>
+		<option value="otro" >Otro</option>
+		<option value="humanidades" >Humanidades</option>
+		<option value="ocio" >Ocio</option>
+		<option value="ciencia" >Ciencia</option>
+		<option value="tecnologia" >Tecnología</option>
+	</select>
     <input type="submit" value="Buscar">
 </form>
