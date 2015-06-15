@@ -1,10 +1,10 @@
 <label for="tipo" class="rem">Tipo</label>
 <select id="tipo" name="quiz[tipo]"/>
-  <option value="otro" >Otro</option>
-  <option value="humanidades" >Humanidades</option>
-  <option value="ocio" >Ocio</option>
-  <option value="ciencia" >Ciencia</option>
-  <option value="tecnologia" >Tecnología</option>
+  <option value="otro" <%if(quiz.tipo=='otro'){%>selected<%}%>>Otro</option>
+  <option value="humanidades" <%if(quiz.tipo=='humanidades'){%>selected<%}%>>Humanidades</option>
+  <option value="ocio" <%if(quiz.tipo=='ocio'){%>selected<%}%>>Ocio</option>
+  <option value="ciencia" <%if(quiz.tipo=='ciencia'){%>selected<%}%>>Ciencia</option>
+  <option value="tecnologia" <%if(quiz.tipo=='tecnologia'){%>selected<%}%>>Tecnología</option>
 </select>
 <br/>
 <label for="preg" class="rem">Pregunta</label>
