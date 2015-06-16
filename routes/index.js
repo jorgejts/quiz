@@ -16,11 +16,11 @@ router.get('/logout',sessionController.destroy);
 router.get('/quizes', quizControllers.index);
 router.get('/quizes/:quizId(\\d+)', quizControllers.show);
 router.get('/quizes/:quizId(\\d+)/answer', quizControllers.answer);
-router.get('/quizes/new',quizControllers.new);
-router.post('/quizes/create',quizControllers.create);
-router.get('/quizes/:quizId(\\d+)/edit',quizControllers.edit);
-router.put('/quizes/:quizId(\\d+)',quizControllers.update);
-router.delete('/quizes/:quizId(\\d+)',quizControllers.destroy);
+router.get('/quizes/new',sessionController.loginRequired,quizControllers.new);
+router.post('/quizes/create',sessionController.loginRequired,quizControllers.create);
+router.get('/quizes/:quizId(\\d+)/edit',sessionController.loginRequired,quizControllers.edit);
+router.put('/quizes/:quizId(\\d+)',sessionController.loginRequired,quizControllers.update);
+router.delete('/quizes/:quizId(\\d+)',sessionController.loginRequired,quizControllers.destroy);
 
 router.get('/quizes/:quizId(\\d+)/comments/new',commentController.new);
 router.post('/quizes/:quizId(\\d+)/comments',commentController.create);
