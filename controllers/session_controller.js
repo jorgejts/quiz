@@ -1,8 +1,33 @@
 exports.loginRequired=function(req,res,next){
 	if(req.session.user){
-		next();
+		var tiempo=new Date();
+		tiempo=tiempo.getTime();
+		console.log(tiempo-req.session.user.tiempo);
+		if((tiempo-req.session.user.tiempo)<60000){
+			req.session.user.tiempo=new Date().getTime();
+			next();
+		}else{
+			delete req.session.user;
+			res.redirect('/login');
+		}
 	}else{
 		res.redirect('/login');
+	}
+};
+exports.desactivated=function(req,res,next){
+	if(req.session.user){
+		var tiempo=new Date();
+		tiempo=tiempo.getTime();
+		console.log(tiempo-req.session.user.tiempo);
+		if((tiempo-req.session.user.tiempo)<60000){
+			req.session.user.tiempo=new Date().getTime();
+			next();
+		}else{
+			delete req.session.user;
+			res.redirect('/quizes');
+		}
+	}else{
+		next();
 	}
 };
 exports.new=function(req,res){
@@ -20,7 +45,9 @@ exports.create=function(req,res){
 			res.redirect('/login');
 			return;
 		}
-		req.session.user={id:user.id,username:user.username};
+		tiempo=new Date();
+		tiempo=tiempo.getTime();
+		req.session.user={id:user.id,username:user.username,tiempo:tiempo};
 		res.redirect(req.session.redir.toString());
 	});
 };

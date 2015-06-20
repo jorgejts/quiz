@@ -14,17 +14,17 @@ router.get('/login',sessionController.new);
 router.post('/login',sessionController.create);
 router.get('/logout',sessionController.destroy);
 
-router.get('/quizes', quizControllers.index);
-router.get('/quizes/:quizId(\\d+)', quizControllers.show);
-router.get('/quizes/:quizId(\\d+)/answer', quizControllers.answer);
+router.get('/quizes', sessionController.desactivated,quizControllers.index);
+router.get('/quizes/:quizId(\\d+)', sessionController.desactivated,quizControllers.show);
+router.get('/quizes/:quizId(\\d+)/answer', sessionController.desactivated,quizControllers.answer);
 router.get('/quizes/new',sessionController.loginRequired,quizControllers.new);
 router.post('/quizes/create',sessionController.loginRequired,quizControllers.create);
 router.get('/quizes/:quizId(\\d+)/edit',sessionController.loginRequired,quizControllers.edit);
 router.put('/quizes/:quizId(\\d+)',sessionController.loginRequired,quizControllers.update);
 router.delete('/quizes/:quizId(\\d+)',sessionController.loginRequired,quizControllers.destroy);
 
-router.get('/quizes/:quizId(\\d+)/comments/new',commentController.new);
-router.post('/quizes/:quizId(\\d+)/comments',commentController.create);
+router.get('/quizes/:quizId(\\d+)/comments/new',sessionController.desactivated,commentController.new);
+router.post('/quizes/:quizId(\\d+)/comments',sessionController.desactivated,commentController.create);
 router.get('/quizes/:quizId(\\d+)/comments/:commentId(\\d+)/publish',sessionController.loginRequired,commentController.publish)
 
 router.get('/author', function(req, res) {
